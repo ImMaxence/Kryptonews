@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb
+    container_name: mariadb
+    env_file:
+      - .env.mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - back-db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    env_file:
+      - .env.phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    networks:
+      - back-db
+
+  back:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: express_server
+    env_file:
+      - .env.back
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command:
+      [
+        "dockerize",
+        "-wait",
+        "tcp://db:3306",
+        "-timeout",
+        "60s",
+        "npm",
+        "start"
+      ]
+    networks:
+      - back-db
+      - front-back
+
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: react_app
+    # env_file:
+    #   - .env
+    ports:
+      - "80:80"
+    depends_on:
+      - back
+    networks:
+      - front-back
+
+volumes:
+  mariadb_data:
+
+
+networks:
+  back-db:
+  front-back:

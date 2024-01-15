@@ -1,0 +1,955 @@
+{
+	"info": {
+		"_postman_id": "311dc81c-f146-455a-9483-f496645b74b4",
+		"name": "Kryptonews",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26345048"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@test.fr",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "Maxence",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "maxence.laporte@epitech.eu",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Maxence123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "Maxence",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Maxence123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.fr",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "camarcheeeeee",
+									"type": "text"
+								},
+								{
+									"key": "profilePicture",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/update/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oneUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/oneUser/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"oneUser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "anonymous",
+			"item": [
+				{
+					"name": "profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/anonymous/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"anonymous",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "nb_crypto",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "nb_feed",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/anonymous/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"anonymous",
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "profile",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "nb_crypto",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "nb_feed",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/anonymous/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"anonymous",
+										"profile"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cryptos",
+			"item": [
+				{
+					"name": "ByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCrypto}}/1",
+							"host": [
+								"{{hostCrypto}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCrypto}}/all",
+							"host": [
+								"{{hostCrypto}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name_crypto",
+									"value": "fedeBitcoin",
+									"type": "text"
+								},
+								{
+									"key": "url_img_crypto",
+									"value": "https://upload.wikimedia.org/wikipedia/commons/5/50/Smile_Image.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hostCrypto}}/create",
+							"host": [
+								"{{hostCrypto}}"
+							],
+							"path": [
+								"create"
+							],
+							"query": [
+								{
+									"key": "name_crypto",
+									"value": "fedeCrypto",
+									"disabled": true
+								},
+								{
+									"key": "url_img_crypto",
+									"value": "https://upload.wikimedia.org/wikipedia/commons/5/50/Smile_Image.png",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostCrypto}}/delete/1",
+							"host": [
+								"{{hostCrypto}}"
+							],
+							"path": [
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byList",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{hostCrypto}}/list/1,2,3,4",
+							"host": [
+								"{{hostCrypto}}"
+							],
+							"path": [
+								"list",
+								"1,2,3,4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history coincap",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{coincap}}/v2/assets/bitcoin/history?interval=d1",
+							"host": [
+								"{{coincap}}"
+							],
+							"path": [
+								"v2",
+								"assets",
+								"bitcoin",
+								"history"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "d1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCrypto}}/:cmid/history/:period",
+							"host": [
+								"{{hostCrypto}}"
+							],
+							"path": [
+								":cmid",
+								"history",
+								":period"
+							],
+							"variable": [
+								{
+									"key": "cmid",
+									"value": "bitcoin"
+								},
+								{
+									"key": "period",
+									"value": "d1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rates",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostRates}}/all",
+							"host": [
+								"{{hostRates}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostRates}}/:symbol",
+							"host": [
+								"{{hostRates}}"
+							],
+							"path": [
+								":symbol"
+							],
+							"variable": [
+								{
+									"key": "symbol",
+									"value": "eur"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Articles",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostArticles}}/all",
+							"host": [
+								"{{hostArticles}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostArticles}}/:id",
+							"host": [
+								"{{hostArticles}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://coinjournal.net/fr/actualites/feed/",
+							"protocol": "https",
+							"host": [
+								"coinjournal",
+								"net"
+							],
+							"path": [
+								"fr",
+								"actualites",
+								"feed",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RssFeeds",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name_rss_feed",
+									"value": "Bitcoin magazine",
+									"type": "text"
+								},
+								{
+									"key": "url_rss_feed",
+									"value": "https://bitcoinmagazine.com/feed",
+									"type": "text"
+								},
+								{
+									"key": "parse_rss_feed",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hostRssFeeds}}/create",
+							"host": [
+								"{{hostRssFeeds}}"
+							],
+							"path": [
+								"create"
+							],
+							"query": [
+								{
+									"key": "name_rss_feed",
+									"value": "tes",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostRssFeeds}}/delete/:id",
+							"host": [
+								"{{hostRssFeeds}}"
+							],
+							"path": [
+								"delete",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostRssFeeds}}/all",
+							"host": [
+								"{{hostRssFeeds}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name_rss_feed",
+									"value": "Bitcoin magazine",
+									"type": "text"
+								},
+								{
+									"key": "url_rss_feed",
+									"value": "https://bitcoinmagazine.com/feed",
+									"type": "text"
+								},
+								{
+									"key": "parse_rss_feed",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hostRssFeeds}}/update/:id",
+							"host": [
+								"{{hostRssFeeds}}"
+							],
+							"path": [
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favorites",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostFav}}/all",
+							"host": [
+								"{{hostFav}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_fav",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name_fav",
+									"value": "test1",
+									"type": "text"
+								},
+								{
+									"key": "url_img_fav",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "filtre_fav",
+									"value": "articles",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hostFav}}/create/:userId",
+							"host": [
+								"{{hostFav}}"
+							],
+							"path": [
+								"create",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostFav}}/delete/:id",
+							"host": [
+								"{{hostFav}}"
+							],
+							"path": [
+								"delete",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allFavByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostFav}}/favorites/:userId",
+							"host": [
+								"{{hostFav}}"
+							],
+							"path": [
+								"favorites",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Api_key",
+			"value": "b272e0ab-5d61-45b7-95a5-b3429cd276d3",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "hostCrypto",
+			"value": "http://localhost:8080/api/cryptos",
+			"type": "string"
+		},
+		{
+			"key": "hostRates",
+			"value": "http://localhost:8080/api/rates",
+			"type": "string"
+		},
+		{
+			"key": "hostArticles",
+			"value": "http://localhost:8080/api/articles",
+			"type": "string"
+		},
+		{
+			"key": "coincap",
+			"value": "api.coincap.io",
+			"type": "string"
+		},
+		{
+			"key": "hostRssFeeds",
+			"value": "http://localhost:8080/api/rss_feeds",
+			"type": "string"
+		},
+		{
+			"key": "hostFav",
+			"value": "http://localhost:8080/api/favorites",
+			"type": "string"
+		}
+	]
+}

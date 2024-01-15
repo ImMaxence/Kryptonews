@@ -1,0 +1,4 @@
+**/.DS_Store
+**/node_modules
+**/.env*
+# **/.gitkeep // à decommenter quand le projet aura bien été init, merci

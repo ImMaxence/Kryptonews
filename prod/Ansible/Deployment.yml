@@ -1,0 +1,71 @@
+---
+- name: Deployment du projet (BDD + front + back) version ARM avec bascule sur la branche de dev
+  hosts: VM
+  become: true
+  become_method: sudo
+
+  vars:
+    repo_git: "https://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@github.com/MateoSalvy/Kryptonews_prod.git"
+
+
+  tasks:
+    - name: Mise à jour du cache APT
+      apt:
+        update_cache: yes
+
+    - name: Installation des dépendances requises pour Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Installation de Docker Engine
+      shell: "curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh"
+      args:
+        creates: /usr/local/bin/docker
+
+    - name: Démarrage du service Docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Installation de Docker Compose
+      shell: "curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+      args:
+        creates: /usr/local/bin/docker-compose
+
+    - name: Ajout des permissions d'exécution à Docker Compose
+      file:
+        path: /usr/local/bin/docker-compose
+        mode: 'a+x'
+
+    - name: Clone du référentiel Git
+      shell: sudo git clone {{repo_git}}
+
+    - name: Ouverture dossier && Lancement docker-compose
+      become: true
+      shell: cd Kryptonews_prod && sudo docker-compose up -d
+
+    - name: Ajout port 3306 MariaDB
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 3306 -j ACCEPT && netfilter-persistent save
+
+    - name: Ajout port 8081 phpMyAdmin
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 8081 -j ACCEPT && netfilter-persistent save
+
+    - name: Ajout port 80 front (react)
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT && netfilter-persistent save
+
+    - name: Ajout port 8080 back
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 8080 -j ACCEPT && netfilter-persistent save
+
+    - name: Ajout port 9000 portainer
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 9000 -j ACCEPT && netfilter-persistent save

@@ -1,0 +1,110 @@
+.container_all_crypto {
+    width: 92%;
+    height: 85svh;
+
+    border: 1px solid var(--white) !important;
+    background-color: rgb(255, 255, 255, 0.4);
+
+    border-radius: 6px;
+    padding: 30px;
+    margin: 30px 4% 0px 4%;
+    animation: appearv2 0.8s ease-in-out;
+    overflow: hidden;
+    // border-radius: 4px;
+}
+
+.container_table_cryptox {
+    //  background-color: red;
+    overflow-y: scroll;
+    width: 100%;
+    height: 81.5vh;
+
+    table {
+        width: 100%;
+    }
+
+    th {
+        color: var(--dark-blue) !important;
+    }
+
+    tr {
+        border-bottom: 1px solid #C5C5C5;
+    }
+}
+
+.header_tab_crypt {
+    background-color: var(--white);
+    opacity: 0.9;
+    height: 50px;
+    //margin-bottom: 30px !important;
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    width: 100%;
+
+}
+
+.please_login {
+    // position: relative;
+    // background-color: red;
+    width: 100% !important;
+
+    h1 {
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 60px;
+    }
+}
+
+@media(max-width:1100px) {
+
+    .header_tab_crypt {
+
+        th:nth-child(1) {
+            //  background-color: red;
+            min-width: 25px;
+        }
+
+        th:nth-child(2) {
+            // background-color: green;
+            min-width: 50px;
+        }
+
+        th:nth-child(3) {
+            // background-color: blue;
+            min-width: 150px;
+        }
+
+        th:nth-child(4) {
+            // background-color: lightblue;
+            min-width: 150px;
+        }
+
+        th:nth-child(5) {
+            // background-color: violet;
+            min-width: 80px;
+        }
+
+        th:nth-child(6) {
+            // background-color: yellow;
+            min-width: 80px;
+        }
+
+        th:nth-child(7) {
+            // background-color: aliceblue;
+            min-width: 80px;
+        }
+
+        th:nth-child(8) {
+            //background-color: black;
+            min-width: 150px;
+        }
+
+        th:nth-child(9) {
+            // background-color: lightgreen;
+            min-width: 80px;
+        }
+    }
+
+}

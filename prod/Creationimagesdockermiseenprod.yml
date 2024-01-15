@@ -1,0 +1,43 @@
+- pipeline: "Creation images docker & mise en prod"
+  on: "CLICK"
+  refs:
+  - ":default"
+  fail_on_prepare_env_warning: true
+  actions:
+  - action: "Build multi-arch Docker image back"
+    type: "DOCKER_BUILD_MULTI_ARCH"
+    docker_image_tag: "latest"
+    dockerfile_path: "back/Dockerfile"
+    context_path: "back"
+    repository: "kryptonews/express_server"
+    target_platform: "linux/arm64,linux/amd64"
+    integration_hash: "kyNzqmQO5xe7WPjje7rJX0A4o8"
+  - action: "Build multi-arch Docker image front"
+    type: "DOCKER_BUILD_MULTI_ARCH"
+    docker_image_tag: "latest"
+    dockerfile_path: "front/Dockerfile"
+    context_path: "front"
+    repository: "kryptonews/react_app"
+    target_platform: "linux/amd64,linux/arm64"
+    integration_hash: "kyNzqmQO5xe7WPjje7rJX0A4o8"
+  - action: "[129.151.239.123] Execute sudo docker compose up -d"
+    type: "SSH_COMMAND"
+    login: "ubuntu"
+    host: "129.151.239.123"
+    server_key: "secure!RSd+JC+kj26ZWEeae4WemUrXEhE3E0CnQ9R/ENneRO0zSHj3swz6XV4yH8TNONo472kSleigYArJR4LLQVjdKJk6sHc9RZHHfslfhUm2W4zO2bks3iFBwg95d6wt2zE+sBvJoRfqkvClWQk+5WwE523DANi1WotOZTybjdB1pYNKc8uzCMUAgfoaSyC0KrisrNkOvIrgTcZT8yWfeQUtQJqW6M001b9/1S+Bycrqx4nhCmFvtL89TiWJ7c4T3OnM6ve7oOX5J7Caj2BSk3WySbHOmIB+CtyMXGaVUUT2+XORTxcfephNdwBPNs8VuRpH5irC4BqtOPW+R/JKm04t9UFZ6Jotkb0KYf5zEY+squ8FFtJC5v+r1Trq2iftHjFhMaA2Oj5EqR2I9S46i1mWEb6fyKMnzJDHNiMkQjxY3jfJQQm1VQzzxovSjIhgkJ7QSaiphpgWTg6HJjCTIiGXi5gDjvkDHTp9HoOXY//SbzcV6iR96N4J/nU5KMEviCij8P6dLcn8/7qH2mx7zNssc9htCXXGs48AWx3lsEpZk6Qhl1StrCt95rlAEtYrOtkZ.XL+vqldRhp7Q6CwC+BdSLQ=="
+    authentication_mode: "PRIVATE_KEY"
+    commands:
+    - "sudo docker stop react_app && sudo docker rm react_app"
+    - "sudo docker stop express_server && sudo docker rm express_server"
+    - "sudo docker rmi kryptonews/react_app"
+    - "sudo docker rmi kryptonews/express_server"
+    - "cd Kryptonews_prod"
+    - "sudo docker compose up -d"
+    run_as_script: true
+  - action: "Send Discord message"
+    type: "DISCORD2"
+    disabled: true
+    notification_url: "https://discord.com/api/webhooks/1176431355836518430/2hZjKLbAhSRfWGEK2ryqtxuYMMfApk79pwO9bUAPIrLVoxPJmyZV_0qDQ4TdTTgup6sw"
+    content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME "
+    attachments:
+    - "{\"title\":\"Details\",\"url\":\"$BUDDY_EXECUTION_URL\",\"fields\":[{\"name\":\"Status\",\"value\":\"Successful execution\"},{\"name\":\"Revision\",\"value\":\"$BUDDY_EXECUTION_REVISION\"},{\"name\":\"Pipeline\",\"value\":\"$BUDDY_PIPELINE_NAME\"},{\"name\":\"Project\",\"value\":\"$BUDDY_PROJECT_NAME\"}]}"

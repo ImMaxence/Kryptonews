@@ -1,0 +1,188 @@
+.background_for_pages {
+    width: 100%;
+    height: 100svh;
+    background-color: var(--dark-blue);
+    filter: blur(10px);
+    transform: scale(1.1);
+    // transform-origin: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1 !important;
+    overflow: hidden;
+}
+
+.orange_round_back {
+    width: 800px;
+    height: 800px;
+    border-radius: 60%;
+    background-color: var(--special-orange);
+    opacity: 43%;
+    //filter: blur(30px);
+
+    filter: blur(80px);
+    //backdrop-filter: blur(40px);
+    position: fixed;
+    bottom: -500px;
+    left: -500px;
+    z-index: 1 !important;
+}
+
+.green_round_back {
+    width: 800px;
+    height: 800px;
+    border-radius: 60%;
+
+    background-color: var(--special-green);
+    //background: linear-gradient(to right, var(--special-green), var(--special-green, rgba(0, 0, 0, 0.5)));
+
+    opacity: 20%;
+    //filter: blur(30px);
+
+    filter: blur(80px);
+    //backdrop-filter: blur(40px);
+    position: fixed;
+    bottom: -400px;
+    right: -300px;
+    z-index: 1 !important;
+}
+
+.white_round_back {
+    width: 800px;
+    height: 800px;
+    border-radius: 60%;
+
+    background-color: var(--white);
+    opacity: 35%;
+    filter: blur(80px);
+    position: fixed;
+    top: -580px;
+    right: -500px;
+    z-index: 1 !important;
+}
+
+.blue_round_back {
+    width: 800px;
+    height: 800px;
+    border-radius: 60%;
+
+    background-color: var(--special-light-blue);
+    opacity: 35%;
+    filter: blur(80px);
+    position: fixed;
+    top: -600px;
+    left: -500px;
+    z-index: 1 !important;
+}
+
+.violet_round_back {
+    width: 800px;
+    height: 800px;
+    border-radius: 60%;
+
+    //   background-color: var(--special-violet);
+    background: linear-gradient(to right, var(--special-violet), var(--special-light-blue));
+    opacity: 35%;
+    filter: blur(80px);
+    position: fixed;
+    top: 200px;
+    left: 400px;
+    z-index: 1 !important;
+}
+
+.manager_svg_back {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1 !important;
+
+    img:nth-child(1) {
+        position: absolute;
+        z-index: 1 !important;
+        bottom: -50px;
+        animation: plane 8s ease-in-out infinite;
+        // width: 100% !important;
+        // background-color: red;
+        width: 100%;
+    }
+
+    img:nth-child(2) {
+        position: absolute;
+        z-index: 1 !important;
+        top: 60px;
+        animation: plane 12s ease-in-out infinite;
+        // width: 100% !important;
+        width: 100%;
+    }
+
+    img:nth-child(3) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1 !important;
+        animation: plane 6s ease-in-out infinite;
+        // width: 100% !important;
+        width: 100%;
+        //  height: 100vh;
+    }
+
+    // img:nth-child(4) {
+    //     position: absolute;
+    //     z-index: 1;
+    //     // background-color: red;
+    //     left: 225px;
+    //     top: 700px;
+    //     animation: plane 6s ease-in-out infinite;
+    //     //width: 30px;
+    //     background-color: red;
+    // }
+
+    // img:nth-child(5) {
+    //     position: absolute;
+    //     z-index: 1;
+    //     // background-color: red;
+    //     left: 600px;
+    //     top: 490px;
+    //     animation: plane 6s ease-in-out infinite;
+    //     //  width: 100% !important;
+    // }
+
+    // img:nth-child(6) {
+    //     position: absolute;
+    //     z-index: 1;
+    //     // background-color: red;
+    //     left: 200px;
+    //     top: 45px;
+    //     animation: plane 12s ease-in-out infinite;
+    //     // width: 100% !important;
+    // }
+
+    // img:nth-child(7) {
+    //     position: absolute;
+    //     z-index: 1;
+    //     // background-color: red;
+    //     left: 1300px;
+    //     top: 190px;
+    //     animation: plane 6s ease-in-out infinite;
+    //     //  width: 100% !important;
+    // }
+}
+
+@media(max-width:1220px) {
+    .manager_svg_back {
+        display: none;
+    }
+}
+
+// @media(min-width:2000px) {
+//     .manager_svg_back {
+//         display: none;
+//     }
+// }
+
+// @media(min-height:1400px) {
+//     .manager_svg_back {
+//         display: none;
+//     }
+// }

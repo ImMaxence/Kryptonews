@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb
+    container_name: mariadb
+    env_file:
+      - .env.mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - back-db
+
+  phpmyadmin:
+    image: arm64v8/phpmyadmin
+    container_name: phpmyadmin
+    env_file:
+      - .env.phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    networks:
+      - back-db
+
+  back:
+    image: kryptonews/express_server
+    container_name: express_server
+    env_file:
+      - .env.back
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command: [ "npm", "start" ]
+    networks:
+      - back-db
+      - front-back
+
+  front:
+    image: kryptonews/react_app
+    container_name: react_app
+    # env_file:
+    #   - .env.front
+    ports:
+      - "80:80"
+    depends_on:
+      - back
+    networks:
+      - front-back
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - back-db
+      - front-back
+
+volumes:
+  mariadb_data:
+  portainer_data:
+
+
+networks:
+  back-db:
+  front-back:

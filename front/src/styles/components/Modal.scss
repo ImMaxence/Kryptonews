@@ -1,0 +1,26 @@
+.modal-header {
+    border-bottom: 0 !important;
+}
+
+.modal-content {
+    border-radius: 4px !important;
+}
+
+// custom bootstrap modal
+
+.container_login_form_modal {
+    //background-color: red;
+
+    h4 {
+        color: var(--dark-blue) !important;
+    }
+
+    p {
+        color: var(--dark-blue) !important;
+    }
+
+    #spec {
+        background-color: var(--white) !important;
+        color: var(--dark-blue) !important;
+    }
+}
