@@ -38,6 +38,7 @@ New features on top of 2.0.0, backwards compatible: existing databases are migra
 - Lighter first load: Newsreader without the optical-size axis, two monospace weights, server-only translations no longer sent to the browser. Lighthouse mobile performance went from 54–79 to 81–99 (median of three runs), desktop 99–100.
 - Runtime Docker images no longer ship npm, npx, corepack or yarn (unused at runtime).
 - Guest session lasts 24 hours (was 2 hours).
+- The login page also offers the editors' **Google sign-in** (still limited to `ADMIN_EMAILS`), not only the editor's entrance.
 - Deployment: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `ADMIN_EMAILS` are now **required** in `docker-compose.yml` (`${NAME:?}`): Coolify flags them and refuses to deploy until they are filled, instead of starting without an editor's entrance.
 
 ### Removed

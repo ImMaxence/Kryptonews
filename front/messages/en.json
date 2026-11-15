@@ -368,6 +368,8 @@
     "noAccount": "No account yet?",
     "registerLink": "Request free access",
     "or": "or",
+    "editorsGoogle": "Editors: continue with Google",
+    "editorsGoogleHint": "For the editors' addresses only. Readers log in with their email and password.",
     "registerKicker": "Free access, on request",
     "registerTitle": "Get the full edition",
     "registerDeck": "Leave your name and email: an editor reviews each request by hand and emails you your login details. Free, no ads, no tracking.",

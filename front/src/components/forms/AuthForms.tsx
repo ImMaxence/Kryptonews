@@ -9,6 +9,7 @@ import { Link, useRouter } from '@/i18n/navigation';
 import { ApiError, send } from '@/lib/client-api';
 import type { User } from '@/lib/types';
 import { GuestButton } from '../auth/GuestButton';
+import { GoogleIcon } from '../Icons';
 import { useSession } from '../providers/SessionProvider';
 import { Field, FormAlert, PasswordInput, describedBy } from './Field';
 
@@ -38,7 +39,27 @@ function useAfterAuth(next?: string) {
   };
 }
 
-export function LoginForm({ next, initialError }: { next?: string; initialError?: string }) {
+/** Google sign-in for the editors (the API refuses any address not listed in ADMIN_EMAILS). */
+function EditorsGoogle() {
+  const t = useTranslations('auth');
+  const locale = useLocale();
+  return (
+    <div className="auth__editors">
+      <p className="auth__divider">{t('or')}</p>
+      <a className="btn btn--oauth" href={`/api/auth/google?locale=${locale}`} aria-describedby="login-editors-hint">
+        <span className="btn__logo">
+          <GoogleIcon />
+        </span>
+        {t('editorsGoogle')}
+      </a>
+      <p id="login-editors-hint" className="field__hint">
+        {t('editorsGoogleHint')}
+      </p>
+    </div>
+  );
+}
+
+export function LoginForm({ next, initialError, google = false }: { next?: string; initialError?: string; google?: boolean }) {
   const t = useTranslations('auth');
   const tReset = useTranslations('reset');
   const tErrors = useTranslations('errors');
@@ -82,6 +103,7 @@ export function LoginForm({ next, initialError }: { next?: string; initialError?
           {t('loginSubmit')}
         </button>
       </form>
+      {google && <EditorsGoogle />}
       <p className="auth__switch">
         {t('noAccount')} <Link href="/register">{t('registerLink')}</Link>
       </p>

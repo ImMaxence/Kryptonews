@@ -5,7 +5,7 @@ import { ScissorsIcon } from '@/components/Icons';
 import { redirect } from '@/i18n/navigation';
 import type { AppLocale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { getSession } from '@/lib/server-api';
+import { getSession, getSiteConfig } from '@/lib/server-api';
 
 type Props = {
   params: Promise<{ locale: AppLocale }>;
@@ -22,7 +22,7 @@ export default async function LoginPage({ params, searchParams }: Props) {
   const { locale } = await params;
   const sp = await searchParams;
   // A guest (demo) session may still sign in or sign up for real.
-  const session = await getSession();
+  const [session, config] = await Promise.all([getSession(), getSiteConfig()]);
   if (session && !session.isGuest) redirect({ href: '/account', locale });
   const t = await getTranslations('auth');
   const next = typeof sp.next === 'string' ? sp.next : undefined;
@@ -41,7 +41,7 @@ export default async function LoginPage({ params, searchParams }: Props) {
             <ScissorsIcon />
             {t('coupon')}
           </span>
-          <LoginForm next={next} initialError={error} />
+          <LoginForm next={next} initialError={error} google={Boolean(config?.google)} />
         </div>
       </div>
     </div>
