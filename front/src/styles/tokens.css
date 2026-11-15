@@ -1,0 +1,89 @@
+/*
+ * Ledger Press: design tokens.
+ * Day edition = newsprint & ink. Night edition = ink-black paper & cream type.
+ * Every text/background pair below was checked against WCAG 2.2 AA (≥ 4.5:1).
+ */
+:root {
+  color-scheme: light;
+
+  --paper: #f3eee3;
+  --paper-deep: #e9e1cf;
+  --paper-edge: #d8cdb4;
+  --ink: #16130f;
+  --ink-soft: #4a4338;
+  --ink-faint: #625a4d;
+  --accent: #b8360f;
+  --on-accent: #f3eee3;
+  --accent-ink: #a5300c;
+  --up: #0b6a39;
+  --down: #b0261b;
+  --marker: #f6d74a;
+  --hairline: rgb(22 19 15 / 0.18);
+  --hairline-strong: rgb(22 19 15 / 0.5);
+  --overlay: rgb(22 19 15 / 0.55);
+  --halftone-dot: rgb(243 238 227 / 0.85);
+  --image-filter: grayscale(1) contrast(1.15) brightness(1.05);
+  --tape: rgb(246 215 74 / 0.6);
+  --shadow-paper: 0 1px 0 rgb(22 19 15 / 0.06), 0 18px 32px -24px rgb(22 19 15 / 0.55);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .09 0 0 0 0 .07 0 0 0 0 .05 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  --font-masthead: var(--font-grenze), 'Old English Text MT', serif;
+  --font-serif: var(--font-newsreader), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Menlo, Consolas, monospace;
+
+  --page-max: 1320px;
+  --gutter: clamp(1rem, 3.2vw, 2.25rem);
+  --measure: 68ch;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --paper: #141210;
+    --paper-deep: #1d1a16;
+    --paper-edge: #2c2822;
+    --ink: #efe7d6;
+    --ink-soft: #c9bfac;
+    --ink-faint: #a59b88;
+    --accent: #ff6a3a;
+    --on-accent: #141210;
+    --accent-ink: #ff8a5c;
+    --up: #5fd393;
+    --down: #ff7f70;
+    --marker: #6b4f12;
+    --hairline: rgb(239 231 214 / 0.16);
+    --hairline-strong: rgb(239 231 214 / 0.45);
+    --overlay: rgb(0 0 0 / 0.7);
+    --halftone-dot: rgb(20 18 16 / 0.8);
+    --image-filter: grayscale(1) contrast(1.1) brightness(0.85);
+    --tape: rgb(255 106 58 / 0.35);
+    --shadow-paper: 0 1px 0 rgb(0 0 0 / 0.4), 0 18px 32px -20px rgb(0 0 0 / 0.9);
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .96 0 0 0 0 .9 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #141210;
+  --paper-deep: #1d1a16;
+  --paper-edge: #2c2822;
+  --ink: #efe7d6;
+  --ink-soft: #c9bfac;
+  --ink-faint: #a59b88;
+  --accent: #ff6a3a;
+  --on-accent: #141210;
+  --accent-ink: #ff8a5c;
+  --up: #5fd393;
+  --down: #ff7f70;
+  --marker: #6b4f12;
+  --hairline: rgb(239 231 214 / 0.16);
+  --hairline-strong: rgb(239 231 214 / 0.45);
+  --overlay: rgb(0 0 0 / 0.7);
+  --halftone-dot: rgb(20 18 16 / 0.8);
+  --image-filter: grayscale(1) contrast(1.1) brightness(0.85);
+  --tape: rgb(255 106 58 / 0.35);
+  --shadow-paper: 0 1px 0 rgb(0 0 0 / 0.4), 0 18px 32px -20px rgb(0 0 0 / 0.9);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .96 0 0 0 0 .9 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

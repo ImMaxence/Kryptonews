@@ -1,0 +1,25 @@
+name: Feedback or idea
+description: Suggest an improvement, a newsroom, or share your experience.
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Your feedback
+      placeholder: "It would be great if…"
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Site language
+      options:
+        - fr
+        - en
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Filled in automatically when you use the "Feedback or a bug?" button on the site.
+      render: text

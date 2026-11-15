@@ -1,0 +1,38 @@
+name: Bug report
+description: Something is broken or looks wrong on Kryptonews.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem. Please do not include passwords or personal data.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+      placeholder: "On the market ledger, sorting by 24h does…"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to …
+        2. Click on …
+        3. See …
+  - type: dropdown
+    id: language
+    attributes:
+      label: Site language
+      options:
+        - fr
+        - en
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Filled in automatically when you use the "Feedback or a bug?" button on the site.
+      render: text

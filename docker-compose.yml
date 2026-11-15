@@ -1,0 +1,96 @@
+# Kryptonews: production stack (Coolify-ready).
+#
+# Coolify: create a "Docker Compose" resource from this repository, then in
+# Domains assign  https://kryptonews.mbonnici.fr:3000  to the `front` service.
+# Variables named SERVICE_PASSWORD_* are generated automatically by Coolify.
+# Readers sign up with email + password. Editors sign in with Google: set
+# GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET and list their addresses in ADMIN_EMAILS.
+#
+# Locally: copy .env.example to .env and run
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up --build -d
+
+services:
+  db:
+    image: mariadb:11.8
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: kryptonews
+      MARIADB_USER: kryptonews
+      MARIADB_PASSWORD: ${SERVICE_PASSWORD_MARIADB}
+      MARIADB_ROOT_PASSWORD: ${SERVICE_PASSWORD_MARIADBROOT}
+      MARIADB_AUTO_UPGRADE: "1"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  back:
+    build:
+      context: ./back
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: "8080"
+      PUBLIC_URL: ${PUBLIC_URL:-https://kryptonews.mbonnici.fr}
+      DB_HOST: db
+      DB_NAME: kryptonews
+      DB_USER: kryptonews
+      DB_PASSWORD: ${SERVICE_PASSWORD_MARIADB}
+      JWT_SECRET: ${SERVICE_PASSWORD_64_JWT}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-editor}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+      ADMIN_PASSWORD: ${SERVICE_PASSWORD_ADMIN}
+      COINGECKO_API_KEY: ${COINGECKO_API_KEY:-}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      TRUST_CLOUDFLARE: ${TRUST_CLOUDFLARE:-true}
+      ARTICLE_RETENTION_DAYS: ${ARTICLE_RETENTION_DAYS:-45}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-}
+      SIGNUP_MAX_PER_HOUR: ${SIGNUP_MAX_PER_HOUR:-30}
+      SIGNUP_MAX_PER_DAY: ${SIGNUP_MAX_PER_DAY:-200}
+      MAX_PENDING_REQUESTS: ${MAX_PENDING_REQUESTS:-100}
+      PENDING_REQUEST_DAYS: ${PENDING_REQUEST_DAYS:-30}
+      MAX_ACCOUNTS: ${MAX_ACCOUNTS:-5000}
+      SIGNUP_POW_BITS: ${SIGNUP_POW_BITS:-16}
+    expose:
+      - "8080"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  front:
+    build:
+      context: ./front
+    restart: unless-stopped
+    depends_on:
+      back:
+        condition: service_healthy
+    environment:
+      PUBLIC_URL: ${PUBLIC_URL:-https://kryptonews.mbonnici.fr}
+      API_INTERNAL_URL: http://back:8080
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-}
+    expose:
+      - "3000"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  db_data:

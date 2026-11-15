@@ -1,0 +1,12 @@
+# Local overrides (Docker Desktop). Not used by Coolify.
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up --build -d
+# then open http://localhost:3000
+
+services:
+  front:
+    ports:
+      - "3000:3000"
+
+  back:
+    environment:
+      COOKIE_SECURE: "false"

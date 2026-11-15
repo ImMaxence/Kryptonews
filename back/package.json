@@ -1,0 +1,36 @@
+{
+  "name": "kryptonews-api",
+  "version": "2.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Kryptonews API: market data sync (CoinGecko), RSS news aggregation, accounts and favorites.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch --env-file-if-exists=.env src/index.js",
+    "check": "node scripts/check-syntax.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cheerio": "^1.2.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.6",
+    "rss-parser": "^3.13.0",
+    "sequelize": "^6.37.8",
+    "sharp": "^0.35.5",
+    "web-push": "^4.0.0",
+    "zod": "^4.6.7"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}
