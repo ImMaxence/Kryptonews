@@ -49,7 +49,15 @@ export const getSiteConfig = cache(() => tryApi<SiteConfig>('/config', { auth: f
 export const getTicker = cache(() => tryApi<{ items: TickerItem[] }>('/cryptos/ticker', { auth: false }));
 export const getRates = cache(async () => (await tryApi<{ items: Rate[] }>('/rates', { auth: false }))?.items ?? []);
 export const getCoins = cache(() => tryApi<CoinList>('/cryptos'));
-export const getCoin = cache((id: string) => tryApi<{ item: Coin }>(`/cryptos/${encodeURIComponent(id)}`, { auth: false }));
+/** null only when the coin does not exist: any other failure throws (error page, 5xx), so search engines retry instead of dropping the page. */
+export const getCoin = cache(async (id: string) => {
+  try {
+    return await api<{ item: Coin }>(`/cryptos/${encodeURIComponent(id)}`, { auth: false });
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+});
 export const getSources = cache(async () => (await tryApi<{ items: Source[] }>('/articles/sources', { auth: false }))?.items ?? []);
 export const getFavorites = cache(async () => (await tryApi<{ items: Favorite[] }>('/favorites'))?.items ?? []);
 

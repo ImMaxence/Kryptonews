@@ -51,7 +51,14 @@ const limiter = (windowMs, limit, extra = {}) =>
     handler: (_req, res) => res.status(429).json({ error: 'rate_limited' }),
   });
 
-export const apiLimiter = limiter(60_000, 300);
+/**
+ * General limit for browser calls, which always come through the web container's proxy and
+ * carry `x-kn-proxy`. Server-side rendering calls (unmarked) come from that same container:
+ * counting them would put every visitor and crawler in one shared bucket, and pages would
+ * break under load. The API is only reachable from the internal Docker network, and the
+ * stricter limiters (login, access requests, guest, reset) still apply to everyone.
+ */
+export const apiLimiter = limiter(60_000, 300, { skip: (req) => req.get('x-kn-proxy') !== '1' });
 export const credentialsLimiter = limiter(15 * 60_000, 20);
 export const sensitiveLimiter = limiter(15 * 60_000, 10);
 export const guestLimiter = limiter(15 * 60_000, 30);

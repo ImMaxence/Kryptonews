@@ -18,6 +18,8 @@ async function proxy(request: NextRequest, context: { params: Promise<{ path: st
   for (const name of [...HOP_BY_HOP, 'host', 'content-length', 'accept-encoding']) headers.delete(name);
   headers.set('x-forwarded-host', request.headers.get('host') ?? incoming.host);
   headers.set('x-forwarded-proto', request.headers.get('x-forwarded-proto') ?? incoming.protocol.replace(':', ''));
+  // Tells the API this call comes from a browser (rate-limited), not from server-side rendering.
+  headers.set('x-kn-proxy', '1');
 
   const hasBody = !['GET', 'HEAD'].includes(request.method);
   let upstream: Response;

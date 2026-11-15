@@ -19,7 +19,8 @@ function sparkPath(data: number[], width: number, height: number) {
 
 export default async function CoinOpenGraphImage({ params }: { params: Promise<{ locale: string; id: string }> }) {
   const { locale, id } = await params;
-  const coin = (await getCoin(id))?.item;
+  // A social card must always render: fall back to the generic card if the API is unavailable.
+  const coin = (await getCoin(id).catch(() => null))?.item;
   const fr = locale === 'fr';
   const change = coin?.change24h ?? 0;
   const color = change >= 0 ? OG.up : OG.down;

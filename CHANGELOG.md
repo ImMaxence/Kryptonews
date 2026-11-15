@@ -44,6 +44,7 @@ New features on top of 2.0.0, backwards compatible: existing databases are migra
 - **Discord sign-in** (code, configuration and legal mentions).
 
 ### Fixed
+- Under load, coin pages answered 404: every server-side page build shared a single API rate-limit bucket. Only browser calls are counted now, and a coin page shows a temporary error (5xx) rather than “not found” when the API is unavailable, so search engines retry instead of dropping it.
 - Modal dialogs (feedback, account deletion, reset link) were stuck in the top-left corner: they are centred again, and open on their main button.
 - Horizontal scroll on the editor's desk at tablet widths (visually hidden labels escaping their scroll container).
 - Layout shift on coin pages (monospace font now preloaded), tap targets under 24 px, text under 11 px on mobile.
