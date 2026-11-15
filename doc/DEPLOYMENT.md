@@ -32,7 +32,8 @@ The `:3000` tells Traefik which container port to route to; visitors still use t
 
 Readers **request access** (first name, last name, email); you approve them on the editor's desk, which creates the account with a temporary password and prepares the email to send. **Editors sign in with Google only**, and only the addresses you list are accepted.
 
-1. [Google Cloud console](https://console.cloud.google.com/) → create (or pick) a project → **APIs & Services → OAuth consent screen**: External, app name “Kryptonews”, your support email, authorized domain `mbonnici.fr`. Scopes: `openid`, `email`, `profile` (non-sensitive, no verification needed).
+1. [Google Cloud console](https://console.cloud.google.com/) → create (or pick) a project → **APIs & Services → OAuth consent screen** (called **Google Auth Platform** in the newer console: *Branding*, *Audience*, *Clients*): External, app name “Kryptonews”, your support email, authorized domain `mbonnici.fr`. Scopes: `openid`, `email`, `profile` (non-sensitive, no verification needed).
+   - **Audience / Publishing status**: while the app is in *Testing*, only the addresses listed under *Test users* can sign in. Add your Google address there, or click **Publish app** (no Google review is needed for these scopes).
 2. **Credentials → Create credentials → OAuth client ID → Web application**.
    - Authorized JavaScript origin: `https://kryptonews.mbonnici.fr`
    - Authorized redirect URI: `https://kryptonews.mbonnici.fr/api/auth/google/callback`
@@ -42,13 +43,13 @@ The editor's entrance is linked in the footer (“Editor's entrance”) and live
 
 ## 5. Environment variables
 
-In the **Environment Variables** tab:
+In the **Environment Variables** tab. The three **required** variables are flagged by Coolify, and the deployment is refused until they have a value (they are written `${NAME:?}` in `docker-compose.yml`):
 
 | Variable | Value |
 |---|---|
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | **Required.** From section 4. |
+| `ADMIN_EMAILS` | **Required.** Comma-separated Google addresses allowed into the editor's desk, e.g. `you@gmail.com, colleague@gmail.com`. |
 | `PUBLIC_URL` | `https://kryptonews.mbonnici.fr` (already the default). |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | From section 4. |
-| `ADMIN_EMAILS` | Comma-separated Google addresses allowed into the editor's desk, e.g. `you@gmail.com, colleague@gmail.com`. |
 | `CONTACT_EMAIL` | Your contact address: legal pages, the “Feedback or a bug?” email button, forgotten-password requests, and the sender contact for push notifications. It is never committed to the repository. |
 | `SERVICE_PASSWORD_MARIADB`, `SERVICE_PASSWORD_MARIADBROOT`, `SERVICE_PASSWORD_64_JWT`, `SERVICE_PASSWORD_ADMIN` | Generated automatically by Coolify. Keep them. |
 | `ADMIN_EMAIL` | Optional break-glass editor with a password (`SERVICE_PASSWORD_ADMIN`). Leave empty if Google sign-in is enough. |
@@ -68,12 +69,19 @@ Click **Deploy**. The first build takes a few minutes (Next.js build, fonts down
 2. The API creates or migrates the schema, seeds the 8 default newsrooms and generates the push notification keys.
 3. Prices appear within seconds, headlines within a minute.
 
-All three services expose health checks, so Coolify shows the stack as *Healthy* once everything is up. Sign in as an editor from the footer's “Editor's entrance” with your Google account.
+All three services expose health checks, so Coolify shows the stack as *Healthy* once everything is up.
+
+**First editor login**, either way:
+
+- **Google** (recommended): footer → **Editor's entrance** (`/fr/redaction`) → *Sign in with Google*, with an address listed in `ADMIN_EMAILS`.
+- **Break-glass password**: if `ADMIN_EMAIL` is set, an editor account with that address exists from the first start. Its password is the value Coolify generated for `SERVICE_PASSWORD_ADMIN` (Environment Variables tab, eye icon). Log in from the normal **Log in** page (`/fr/connexion`); the **Editor's desk** link then appears in the header.
 
 ## 7. Search engines and AI assistants
 
-1. Open [Google Search Console](https://search.google.com/search-console), add the property `https://kryptonews.mbonnici.fr/` (or verify the whole `mbonnici.fr` domain through a Cloudflare DNS TXT record).
-2. **Sitemaps → Add a new sitemap →** `sitemap.xml` → Submit. It lists every page in both languages and the 100 coin pages.
+1. Open [Google Search Console](https://search.google.com/search-console).
+   - If a **Domain** property `mbonnici.fr` is already verified, it covers every subdomain: nothing to verify, go to step 2 inside it.
+   - Otherwise add a **Domain** property `mbonnici.fr` (or `kryptonews.mbonnici.fr`). Google detects Cloudflare and offers to add the DNS TXT record for you; or copy the TXT record into Cloudflare → DNS yourself.
+2. **Sitemaps → Add a new sitemap →** `https://kryptonews.mbonnici.fr/sitemap.xml` → Submit. It lists every page in both languages and the 100 coin pages. Optionally use **URL inspection → Request indexing** on the front page to speed things up.
 3. Recommended: in [Bing Webmaster Tools](https://www.bing.com/webmasters), import the site from Search Console. Bing's index also feeds Copilot and several AI search engines.
 4. Nothing to do for AI crawlers: `robots.txt` already allows them, and `/llms.txt` and `/llms-full.txt` are live.
 
@@ -118,7 +126,8 @@ Only accounts, clippings and notification subscriptions really need backing up: 
 
 ## 12. Hardening checklist
 
-- Allow only [Cloudflare IP ranges](https://www.cloudflare.com/ips/) on ports 80/443 of the home router or firewall (or use a Cloudflare Tunnel), so `CF-Connecting-IP` cannot be spoofed. Otherwise set `TRUST_CLOUDFLARE=false`.
+- Allow only [Cloudflare IP ranges](https://www.cloudflare.com/ips/) on ports 80/443 of the home router or firewall (or use a Cloudflare Tunnel), so the server cannot be reached around Cloudflare. (The API already ignores `CF-Connecting-IP` unless the connection comes from a Cloudflare range.)
+- Cloudflare (free): **Bot Fight Mode**, and a rate-limiting rule on `/api/auth/access-request` (e.g. 5 requests per 10 minutes per IP).
 - Once Google sign-in works, leave `ADMIN_EMAIL` empty (or keep its generated password secret).
 - Keep Coolify and the server's OS up to date; redeploy regularly to pick up new Node/Alpine base images.
 

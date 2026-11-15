@@ -3,8 +3,11 @@
 # Coolify: create a "Docker Compose" resource from this repository, then in
 # Domains assign  https://kryptonews.mbonnici.fr:3000  to the `front` service.
 # Variables named SERVICE_PASSWORD_* are generated automatically by Coolify.
-# Readers sign up with email + password. Editors sign in with Google: set
-# GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET and list their addresses in ADMIN_EMAILS.
+# Variables written ${NAME:?} are required: Coolify flags them and refuses to
+# deploy until they have a value.
+# Readers request access and are approved on the editor's desk. Editors sign in
+# with Google: set GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET and list their
+# addresses in ADMIN_EMAILS. Full guide: doc/DEPLOYMENT.md
 #
 # Locally: copy .env.example to .env and run
 #   docker compose -f docker-compose.yml -f docker-compose.local.yml up --build -d
@@ -51,11 +54,11 @@ services:
       JWT_SECRET: ${SERVICE_PASSWORD_64_JWT}
       ADMIN_USERNAME: ${ADMIN_USERNAME:-editor}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-}
-      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+      ADMIN_EMAILS: ${ADMIN_EMAILS:?}
       ADMIN_PASSWORD: ${SERVICE_PASSWORD_ADMIN}
       COINGECKO_API_KEY: ${COINGECKO_API_KEY:-}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:?}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:?}
       TRUST_CLOUDFLARE: ${TRUST_CLOUDFLARE:-true}
       ARTICLE_RETENTION_DAYS: ${ARTICLE_RETENTION_DAYS:-45}
       CONTACT_EMAIL: ${CONTACT_EMAIL:-}
